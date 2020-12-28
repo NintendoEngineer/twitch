@@ -8,6 +8,8 @@ var flaggedWordsDict = {
   "incel": "nintendo"
 }
 
+var textTainted = false;
+
 window.onload = function () {
   const targetNode = document.getElementsByClassName("chat-scrollable-area__message-container").item(0);
   
@@ -20,15 +22,17 @@ window.onload = function () {
       
       var flaggedWords = Object.keys(flaggedWordsDict);
       for (j = 0; j < flaggedWords.length; j++) {
-        var currentFlaggedWord = flaggedWords[i];
+        var currentFlaggedWord = flaggedWords[j];
         
         if (currentText.includes(currentFlaggedWord)) {
+          textTainted = true;
           var friendlyWord = flaggedWordsDict[currentFlaggedWord];
           currentText = currentText.replace(currentFlaggedWord, friendlyWord)
         }
       }
 
-      currentMessageSpan.textContent = currentText;
+      if (textTainted) currentMessageSpan.textContent = currentText;
+      textTainted = false;
     }
   }
 
