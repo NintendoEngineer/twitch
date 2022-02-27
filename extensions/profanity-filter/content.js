@@ -11,7 +11,11 @@ var flaggedWordsDict = {
 var textTainted = false;
 
 window.onload = function () {
-  const targetNode = document.getElementsByClassName("chat-scrollable-area__message-container").item(0);
+  const chatClassDivs = window.location.href.indexOf("twitch.tv/videos") > -1 
+    ? document.getElementsByClassName("video-chat__message-list-wrapper")
+    : document.getElementsByClassName("chat-scrollable-area__message-container");
+
+  const targetNode = chatClassDivs.item(0);
   
   const callback = function (mutationsList, observer) {
     var lastMessageSpans = targetNode.lastElementChild.getElementsByClassName("text-fragment");
